@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
 * {
-    font-family: 'Inter';
-    padding: 0px 5px;
+    font-family: 'Inter';   
 }

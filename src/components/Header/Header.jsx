@@ -1,9 +1,8 @@
-import { Hero } from "./components/Hero";
 
 export function Header() {
   return (
     <>
-      <header className="max-w-90 mx-auto my-5">
+      <header className="max-w-90 mx-auto mt-4 xl:mt-15">
         <a className="flex flex-col gap-2 items-center justify-center" href="#">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +18,6 @@ export function Header() {
           <h1 className="text-3xl font-bold">FuelFinder</h1>
         </a>
       </header>
-      <Hero />
     </>
   );
 }
