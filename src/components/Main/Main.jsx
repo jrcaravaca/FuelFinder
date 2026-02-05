@@ -1,9 +1,47 @@
-import { TextCard } from "../../components/TextCard/TextCard";
+import { TextCard } from "../TextCard/TextCard";
 import { textCardData } from "../../CONST/textCardData";
 import { Hero } from "./components/Hero";
+import { useState } from "react";
+import data from "../../../data.json";
+import { StationCard } from "../StationCard/StationCard";
 
+export function Main() {
+  const [isSearching, setIsSearching] = useState(false)
 
-export function Homepage() {
+  const renderTextCard = () => {
+    return (
+    textCardData.map(data => {
+      return(
+        <TextCard title={data.title} text={data.text} src={data.src} key={data.id} />
+      )
+    })
+   )
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    setIsSearching(true)
+    
+  }
+  console.log("DATA:", data)
+  console.log("LISTA:", data.ListaEESSPrecio)
+
+  const renderStationCard = () => {
+    return (
+      data.ListaEESSPrecio.map(station => {
+        
+        return (
+          <StationCard 
+              rotulo={station["Rótulo"]}
+              direccion={station["Dirección"]}
+              gasolina95={station["Precio Gasolina 95 E5"]}
+              diesel={station["Precio Gasoleo A"]}
+              key={station.IDEESS}
+              />
+        )
+      })
+    )
+  }
 
   return (
     <main className="pb-8">
@@ -12,6 +50,7 @@ export function Homepage() {
         <form
           action="#"
           className="flex flex-col justify-center items-center gap-4 sm:max-w-96 sm:mx-auto"
+          onSubmit={handleSearch}
         >
           <div className="border rounded-xl p-2 w-full flex gap-2">
             <svg
@@ -34,7 +73,7 @@ export function Homepage() {
               className="w-full"
             />
           </div>
-          <button className="border border-blue-500 bg-blue-500 text-white rounded-xl p-2 w-full flex justify-center items-center">
+          <button className="shadow-lg border-b-4 border-blue-800 bg-blue-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-blue-500 active:border-b-2 active:translate-y-0.5 transition-all">
             Buscar
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -53,16 +92,15 @@ export function Homepage() {
         </form>
       </section>
 
-      <section id="cardSection" className="flex flex-col gap-2 mt-4 mb-4 items-center justify-center sm:flex-row">
+      <section id="cardSection" className="flex flex-col flex-wrap gap-2 mt-8 mb-4 items-center justify-center sm:flex-row">
         {
-        textCardData.map(data => {
-          return(
-          <TextCard title={data.title} text={data.text} src={data.src} key={data.id} />)
 
-        })
+         isSearching ? renderStationCard() : renderTextCard()
+              
         
         }
       </section>
     </main>
   );
 }
+
