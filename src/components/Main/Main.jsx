@@ -44,7 +44,7 @@ export function Main() {
   }
 
   return (
-    <main className="pb-8">
+    <main className="pb-8 mx-4">
       <Hero />
       <section id="formSection">
         <form
