@@ -2,12 +2,12 @@ import { TextCard } from "../TextCard/TextCard";
 import { textCardData } from "../../CONST/textCardData";
 import { Hero } from "./components/Hero";
 import { useState } from "react";
-import data from "../../../data.json";
 import { StationCard } from "../StationCard/StationCard";
 
-export function Main() {
+export function Main({data}) {
   const [isSearching, setIsSearching] = useState(false)
-
+  const [CP, setCP] = useState("")
+  
   const renderTextCard = () => {
     return (
     textCardData.map(data => {
@@ -23,20 +23,22 @@ export function Main() {
     setIsSearching(true)
     
   }
-  console.log("DATA:", data)
-  console.log("LISTA:", data.ListaEESSPrecio)
+
 
   const renderStationCard = () => {
+    const filteredData = data.filter((gasolinera) => gasolinera.cp === CP.trim())
+    console.log(filteredData)
+    console.log(CP)
     return (
-      data.ListaEESSPrecio.map(station => {
+      filteredData.map(station => {
         
         return (
           <StationCard 
-              rotulo={station["Rótulo"]}
-              direccion={station["Dirección"]}
-              gasolina95={station["Precio Gasolina 95 E5"]}
-              diesel={station["Precio Gasoleo A"]}
-              key={station.IDEESS}
+              rotulo={station.rotulo}
+              direccion={station.direccion}
+              gasolina95={station.gasolina}
+              diesel={station.gasoil}
+              key={station.id}
               />
         )
       })
@@ -48,6 +50,7 @@ export function Main() {
       <Hero />
       <section id="formSection">
         <form
+          name="search form"
           action="#"
           className="flex flex-col justify-center items-center gap-4 sm:max-w-96 sm:mx-auto"
           onSubmit={handleSearch}
@@ -71,6 +74,7 @@ export function Main() {
               type="text"
               placeholder="Ciudad o  código postal..."
               className="w-full"
+              onChange={(e) => setCP(e.target.value)}
             />
           </div>
           <button className="shadow-lg border-b-4 border-blue-800 bg-blue-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-blue-500 active:border-b-2 active:translate-y-0.5 transition-all">
