@@ -70,8 +70,10 @@ export function Main({data, loading}) {
         <p className="text-sm text-gray-500">Esto puede tardar unos segundos</p>
       </main>
   );
-  
+
   }
+
+  
   return (
     <main className="pb-8 mx-4">
       <Hero />

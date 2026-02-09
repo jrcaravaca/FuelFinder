@@ -7,9 +7,9 @@
     },
     {
       id: 2,
-      title: "Ahorra dinero",
-      text: "Encuentra las gasolineras más baratas según tu posición",
-      src: "/save-money.svg",
+      title: "Cerca de ti",
+      text: "Encuentra gasolineras por código postal o localidad",
+      src: "/map.svg",
     },
     {
       id: 3,
