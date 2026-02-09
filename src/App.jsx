@@ -46,7 +46,7 @@ function App() {
         gasoil: e["Precio Gasoleo A"],
         gasolina: e["Precio Gasolina 95 E5"],
         id: e["IDEESS"],
-        provincia: e["Provincia"],
+        localidad: e["Localidad"],
       }));
 
       localStorage.setItem(

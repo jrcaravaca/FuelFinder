@@ -27,8 +27,12 @@ export function Main({data}) {
 
   const renderStationCard = () => {
     const filteredData = data.filter((gasolinera) => gasolinera.cp === CP.trim())
-    console.log(filteredData)
-    console.log(CP)
+    
+    if (filteredData.length === 0) {
+      return (
+        <h2>No hay resultados para tu busqueda</h2>
+      )
+    }
     return (
       filteredData.map(station => {
         
@@ -42,6 +46,7 @@ export function Main({data}) {
               />
         )
       })
+    
     )
   }
 
