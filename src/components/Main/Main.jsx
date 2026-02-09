@@ -4,7 +4,7 @@ import { Hero } from "./components/Hero";
 import { useState } from "react";
 import { StationCard } from "../StationCard/StationCard";
 
-export function Main({data}) {
+export function Main({data, loading}) {
   const [isSearching, setIsSearching] = useState(false)
   const [searchItem, setSearchItem] = useState("")
   const [inputValue, setInputValue] = useState("")
@@ -62,7 +62,16 @@ export function Main({data}) {
     
     )
   }
-
+  
+  if (loading) {
+    return (
+      <main className="flex flex-col items-center justify-center py-20">
+        <p className="text-lg">Cargando precios de carburante…</p>
+        <p className="text-sm text-gray-500">Esto puede tardar unos segundos</p>
+      </main>
+  );
+  
+  }
   return (
     <main className="pb-8 mx-4">
       <Hero />

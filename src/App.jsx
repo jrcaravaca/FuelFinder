@@ -12,6 +12,7 @@ const APIUrl = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes
 
 function App() {
   const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const CACHE_KEY = "fuelData"; 
@@ -27,6 +28,7 @@ function App() {
 
           if (!isExpired) {
             setData(parsed.data)
+            setLoading(false)
             return; 
           }
         }
@@ -49,6 +51,9 @@ function App() {
         localidad: e["Localidad"],
       }));
 
+      setData(cleanedData)
+      setLoading(false)
+
       localStorage.setItem(
         CACHE_KEY, 
         JSON.stringify({
@@ -62,6 +67,7 @@ function App() {
       }
     }
     loadData();
+    
 
   },[])
     
@@ -72,7 +78,7 @@ function App() {
   return (
     <>
       <Header />
-      <Main data={data}/>
+      <Main data={data} loading={loading}/>
       <Footer />
     </>
   );
