@@ -51,6 +51,7 @@ export function Main({data}) {
         return (
           <StationCard 
               rotulo={station.rotulo}
+              localidad={station.localidad}
               direccion={station.direccion}
               gasolina95={station.gasolina}
               diesel={station.gasoil}
