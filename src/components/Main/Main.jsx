@@ -6,7 +6,8 @@ import { StationCard } from "../StationCard/StationCard";
 
 export function Main({data}) {
   const [isSearching, setIsSearching] = useState(false)
-  const [CP, setCP] = useState("")
+  const [searchItem, setSearchItem] = useState("")
+  const [inputValue, setInputValue] = useState("")
   
   const renderTextCard = () => {
     return (
@@ -20,13 +21,24 @@ export function Main({data}) {
 
   const handleSearch = (e) => {
     e.preventDefault()
+    setSearchItem(inputValue)
     setIsSearching(true)
     
   }
 
 
   const renderStationCard = () => {
-    const filteredData = data.filter((gasolinera) => gasolinera.cp === CP.trim())
+    const search = searchItem.trim().toLowerCase()
+
+    const filteredData = data.filter(gasolinera => {
+      if (/^\d+$/.test(search)) {
+        // es código postal
+        return gasolinera.cp === search
+      } else {
+        // es ciudad
+        return gasolinera.localidad.toLowerCase().includes(search)
+      }
+})
     
     if (filteredData.length === 0) {
       return (
@@ -77,9 +89,10 @@ export function Main({data}) {
             </svg>
             <input
               type="text"
+              value={inputValue}
               placeholder="Ciudad o  código postal..."
               className="w-full"
-              onChange={(e) => setCP(e.target.value)}
+              onChange={(e) => setInputValue(e.target.value)}
             />
           </div>
           <button className="shadow-lg border-b-4 border-blue-800 bg-blue-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-blue-500 active:border-b-2 active:translate-y-0.5 transition-all">
