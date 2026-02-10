@@ -1,23 +1,16 @@
-import { TextCard } from "../TextCard/TextCard";
-import { textCardData } from "../../CONST/textCardData";
 import { Hero } from "./components/Hero";
 import { useState } from "react";
-import { StationCard } from "../StationCard/StationCard";
+import { useRenderCards } from "../../hooks/useRenderCards";
+import { Favorites } from "../Favorites/Favorites";
 
-export function Main({data, loading}) {
+export function Main({data, loading, favorites,  toggleFavorite}) {
   const [isSearching, setIsSearching] = useState(false)
+  const [renderFavorites, setRenderFavorites] = useState(false)
   const [searchItem, setSearchItem] = useState("")
   const [inputValue, setInputValue] = useState("")
+  const {renderStationCard, renderTextCard} = useRenderCards(data, favorites, toggleFavorite, searchItem)
   
-  const renderTextCard = () => {
-    return (
-    textCardData.map(data => {
-      return(
-        <TextCard title={data.title} text={data.text} src={data.src} key={data.id} />
-      )
-    })
-   )
-  }
+ 
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -26,43 +19,6 @@ export function Main({data, loading}) {
     
   }
 
-
-  const renderStationCard = () => {
-    const search = searchItem.trim().toLowerCase()
-
-    const filteredData = data.filter(gasolinera => {
-      if (/^\d+$/.test(search)) {
-        // es código postal
-        return gasolinera.cp === search
-      } else {
-        // es ciudad
-        return gasolinera.localidad.toLowerCase().includes(search)
-      }
-})
-    
-    if (filteredData.length === 0) {
-      return (
-        <h2>No hay resultados para tu busqueda</h2>
-      )
-    }
-    return (
-      filteredData.map(station => {
-        
-        return (
-          <StationCard 
-              rotulo={station.rotulo}
-              localidad={station.localidad}
-              direccion={station.direccion}
-              gasolina95={station.gasolina}
-              diesel={station.gasoil}
-              key={station.id}
-              />
-        )
-      })
-    
-    )
-  }
-  
   if (loading) {
     return (
       <main className="flex flex-col items-center justify-center py-20">
@@ -73,9 +29,15 @@ export function Main({data, loading}) {
 
   }
 
-  
+  const handleFavorites = (e) => {
+    e.preventDefault()
+    setRenderFavorites(true)
+    setIsSearching(false) 
+    setInputValue("") 
+  }
+
   return (
-    <main className="pb-8 mx-4">
+    <main className="pb-8 mx-4 flex flex-col justify-center gap-2">
       <Hero />
       <section id="formSection">
         <form
@@ -105,6 +67,7 @@ export function Main({data, loading}) {
               placeholder="Ciudad o  código postal..."
               className="w-full"
               onChange={(e) => setInputValue(e.target.value)}
+              required
             />
           </div>
           <button className="shadow-lg border-b-4 border-blue-800 bg-blue-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-blue-500 active:border-b-2 active:translate-y-0.5 transition-all">
@@ -125,13 +88,36 @@ export function Main({data, loading}) {
           </button>
         </form>
       </section>
+      <section id="favButtonSection" className="self-center">
+        <button 
+            onClick={handleFavorites}
+            className="shadow-lg border-b-4 border-red-800 bg-red-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-red-500 active:border-b-2 active:translate-y-0.5 transition-all">
+            Favoritos
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="white"
+              width="20px"
+              height="16px"
+              viewBox="0 0 24 24"
+            >
+              <path d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z" />
+              <path
+                xmlns="http://www.w3.org/2000/svg"
+                d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+              />
+            </svg>
+          </button>
+      </section>
 
       <section id="cardSection" className="flex flex-col flex-wrap gap-2 mt-8 mb-4 items-center justify-center sm:flex-row">
         {
-
-         isSearching ? renderStationCard() : renderTextCard()
+         
+            isSearching
+              ? renderStationCard() 
+              : renderFavorites
+                ? <Favorites favorites={favorites} toggleFavorite={toggleFavorite} /> 
+                : renderTextCard() 
               
-        
         }
       </section>
     </main>

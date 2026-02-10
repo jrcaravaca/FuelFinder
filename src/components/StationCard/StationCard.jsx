@@ -1,4 +1,8 @@
-export function StationCard({ rotulo, direccion, localidad, gasolina95, diesel }) {
+
+
+export function StationCard({ rotulo, direccion, localidad, gasolina95, diesel, isLiked, onToggleFavorite }) {
+
+
   return (
     <div className="flex flex-col gap-2 border border-slate-300 rounded-xl p-4 w-full max-w-sm bg-white shadow-sm hover:shadow-md transition-shadow">
       <h3 className="text-center font-semibold text-lg text-slate-800">
@@ -24,6 +28,10 @@ export function StationCard({ rotulo, direccion, localidad, gasolina95, diesel }
         <span className="font-medium text-slate-700">Diésel:</span>{" "}
         <span className="text-blue-600 font-semibold">{diesel} €</span>
       </p>
+      
+      <button className="self-center" onClick={onToggleFavorite}>
+        <img src={!isLiked ? "../../../../like.svg" : "../../../../filled-like.svg"} alt="like" className="h-8"/>
+      </button>
     </div>
   );
 }
