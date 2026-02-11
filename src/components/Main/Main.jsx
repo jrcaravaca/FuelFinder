@@ -4,14 +4,23 @@ import { useRenderCards } from "../../hooks/useRenderCards";
 import { Favorites } from "../Favorites/Favorites";
 
 export function Main({data, loading, favorites,  toggleFavorite}) {
+  // Estado que indica si ya se ha hecho alguna búsqueda
   const [isSearching, setIsSearching] = useState(false)
+
+  // Estado que controla si se esta mostrando la vista de favoritos
   const [renderFavorites, setRenderFavorites] = useState(false)
+
+  // Valor definitivo que se usa para filtrar los resultados
   const [searchItem, setSearchItem] = useState("")
+
+  // Valor controlado del input
   const [inputValue, setInputValue] = useState("")
+
+  // Hook que devuelve las funciones para renderizar las cards
   const {renderStationCard, renderTextCard} = useRenderCards(data, favorites, toggleFavorite, searchItem)
   
  
-
+  // Manejo del envío del formulario de búsqueda
   const handleSearch = (e) => {
     e.preventDefault()
     setSearchItem(inputValue)
@@ -19,6 +28,7 @@ export function Main({data, loading, favorites,  toggleFavorite}) {
     
   }
 
+  // Vista de carga mientras se obtienen los datos de la API
   if (loading) {
     return (
       <main className="flex flex-col items-center justify-center py-20">
@@ -29,6 +39,7 @@ export function Main({data, loading, favorites,  toggleFavorite}) {
 
   }
 
+  // Activa la vista de favoritos
   const handleFavorites = (e) => {
     e.preventDefault()
     setRenderFavorites(true)
@@ -112,6 +123,7 @@ export function Main({data, loading, favorites,  toggleFavorite}) {
       <section id="cardSection" className="flex flex-col flex-wrap gap-2 mt-8 mb-4 items-center justify-center sm:flex-row">
         {
          
+          // Renderizado condicional, la búsqueda siempre tiene prioridad, luego los favoritos y por último las cards de muestra de la página principal
             isSearching
               ? renderStationCard() 
               : renderFavorites

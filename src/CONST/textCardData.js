@@ -7,8 +7,8 @@
     },
     {
       id: 2,
-      title: "Cerca de ti",
-      text: "Encuentra gasolineras por código postal o localidad",
+      title: "Google Maps",
+      text: "Obtén la ubicación en Maps con un solo click",
       src: "/map.svg",
     },
     {

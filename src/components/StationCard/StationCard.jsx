@@ -1,11 +1,17 @@
+export function StationCard({
+  rotulo,
+  direccion,
+  localidad,
+  gasolina95,
+  diesel,
+  isLiked,
+  onToggleFavorite,
+}) {
 
-
-export function StationCard({ rotulo, direccion, localidad, gasolina95, diesel, isLiked, onToggleFavorite,}) {
-  
+  // URL para la búsqueda en Google Maps
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  `${direccion}, ${localidad}, ${rotulo}`
-)}`
-
+    `${direccion}, ${localidad}, ${rotulo}`,
+  )}`;
 
   return (
     <div className="flex flex-col gap-2 border border-slate-300 rounded-xl p-4 w-full max-w-sm bg-white shadow-sm hover:shadow-md transition-shadow">
@@ -33,10 +39,23 @@ export function StationCard({ rotulo, direccion, localidad, gasolina95, diesel, 
         <span className="text-blue-600 font-semibold">{diesel} €</span>
       </p>
 
-      <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">Ver en Google Maps</a>
-      
+      <a
+        href={mapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-600 underline"
+      >
+        Ver en Google Maps
+      </a>
+
       <button className="self-center" onClick={onToggleFavorite}>
-        <img src={!isLiked ? "../../../../like.svg" : "../../../../filled-like.svg"} alt="like" className="h-8"/>
+        <img
+          src={
+            !isLiked ? "../../../../like.svg" : "../../../../filled-like.svg"
+          }
+          alt="like"
+          className="h-8"
+        />
       </button>
     </div>
   );

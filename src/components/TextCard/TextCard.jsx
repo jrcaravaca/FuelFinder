@@ -1,4 +1,6 @@
 export function TextCard({title, text, src}) {
+
+    // Tarjetas de muestra en la pantalla de inicio
     return (
         <div className="flex flex-col items-center justify-center border border-slate-400 rounded-xl max-w-50 p-4 min-h-40">
             <img className="w-4" src={src} alt={src} />
