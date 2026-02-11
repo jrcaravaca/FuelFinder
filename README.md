@@ -82,3 +82,6 @@ Archivo _redirects en dist:
 Desarrollado por jrcaravaca
 Proyecto personal enfocado a mi formación en desarollo FullStack
 
+## Licencia
+
+Este proyecto es de uso libre para aprendizaje y práctica. 
