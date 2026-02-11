@@ -85,11 +85,10 @@ export function Main({data, loading, favorites,  toggleFavorite}) {
                 d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
               />
             </svg>
+
           </button>
-        </form>
-      </section>
-      <section id="favButtonSection" className="self-center">
-        <button 
+
+                  <button 
             onClick={handleFavorites}
             className="shadow-lg border-b-4 border-red-800 bg-red-500 text-white rounded-xl p-2 w-full flex justify-center items-center cursor-pointer hover:bg-red-500 active:border-b-2 active:translate-y-0.5 transition-all">
             Favoritos
@@ -107,6 +106,7 @@ export function Main({data, loading, favorites,  toggleFavorite}) {
               />
             </svg>
           </button>
+        </form>
       </section>
 
       <section id="cardSection" className="flex flex-col flex-wrap gap-2 mt-8 mb-4 items-center justify-center sm:flex-row">
